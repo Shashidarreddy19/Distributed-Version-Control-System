@@ -3,7 +3,7 @@ const path = require("path");
 const { v4: uuidv4 } = require('uuid');
 
 async function commitRepo(message) {
-    const repoPath = path.resolve(process.cwd(), ".nova");
+    const repoPath = path.resolve(process.cwd(), ".vault");
     const stagedPath = path.resolve(repoPath, "staging");
     const commitPath = path.resolve(repoPath, "commits");
 

@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require("path");
 
 async function initRepo() {
-    const repoPath = path.resolve(process.cwd(), ".nova");
+    const repoPath = path.resolve(process.cwd(), ".vault");
     const commitsPath = path.resolve(repoPath, "commits");
     const configPath = path.resolve(repoPath, "config.json");
 

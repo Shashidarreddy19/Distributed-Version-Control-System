@@ -7,7 +7,7 @@ A full-stack developer platform built around a custom Git-inspired version contr
 ## Table of Contents
 
 - [Overview](#overview)
-- [The .nova Folder](#the-nova-folder)
+- [The .vault Folder](#the-vault-folder)
 - [CLI Commands](#cli-commands)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
@@ -21,25 +21,25 @@ A full-stack developer platform built around a custom Git-inspired version contr
 CodeVault is two things in one:
 
 **1. A custom Version Control System (CLI)**
-A command-line tool that mirrors Git behaviour using a local `.nova` folder. Stage files, create commits (each stored as a UUID-named snapshot), push to AWS S3, pull from S3, and revert to any previous commit — all without Git.
+A command-line tool that mirrors Git behaviour using a local `.vault` folder. Stage files, create commits (each stored as a UUID-named snapshot), push to AWS S3, pull from S3, and revert to any previous commit — all without Git.
 
 **2. A Web Developer Platform (MERN)**
 A full-stack web app where users sign up, create repositories, track issues, view contribution heatmaps, and manage their developer profile. Built on MongoDB, Express, React, and Node.js with real-time support via Socket.IO.
 
 ---
 
-## The `.nova` Folder
+## The `.vault` Folder
 
-When you run `nova init`, a `.nova` directory is created in your working directory — analogous to `.git`.
+When you run `vault init`, a `.vault` directory is created in your working directory — analogous to `.git`.
 
 ```
-.nova/
+.vault/
 ├── commits/
 │   └── <uuid>/
 │       ├── <staged files>
 │       └── commit.json       ← commit ID, message, timestamp
 ├── staging/
-│   └── <files added via nova add>
+│   └── <files added via vault add>
 └── config.json               ← S3 bucket name for push/pull
 ```
 
@@ -56,9 +56,9 @@ node index.js <command>
 | Command | What it does |
 |---|---|
 | `node index.js start` | Start the Express + Socket.IO web server |
-| `node index.js init` | Initialize a `.nova` repo in the current directory |
-| `node index.js add <file>` | Stage a file into `.nova/staging/` |
-| `node index.js commit "<message>"` | Create a commit snapshot under `.nova/commits/<uuid>/` |
+| `node index.js init` | Initialize a `.vault` repo in the current directory |
+| `node index.js add <file>` | Stage a file into `.vault/staging/` |
+| `node index.js commit "<message>"` | Create a commit snapshot under `.vault/commits/<uuid>/` |
 | `node index.js push` | Upload all local commits to AWS S3 |
 | `node index.js pull` | Download all commits from AWS S3 |
 | `node index.js revert <commitID>` | Restore working directory to a specific commit |

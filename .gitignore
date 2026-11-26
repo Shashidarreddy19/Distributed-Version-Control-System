@@ -31,5 +31,5 @@ Thumbs.db
 # Agent artifacts
 .agents/
 
-# Nova local VCS store (created on nova init — not for git)
-.nova/
+# Local VCS store (created on vault init — not for git)
+.vault/

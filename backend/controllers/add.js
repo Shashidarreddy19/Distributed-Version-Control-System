@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require("path");
 
 async function addRepo(filePath) {
-    const repoPath = path.resolve(process.cwd(), ".nova");
+    const repoPath = path.resolve(process.cwd(), ".vault");
     const stagingPath = path.resolve(repoPath, "staging");
 
     try {

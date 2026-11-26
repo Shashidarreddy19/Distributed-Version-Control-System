@@ -23,9 +23,9 @@ dotenv.config(); //enables .env variables to be used with process
 
 yargs(hideBin(process.argv))
     .command("start", "Start a new server", {}, startServer)
-    .command("init", "Initialize a new repository", {}, initRepo)
+    .command("init", "Initialize a new .vault repository", {}, initRepo)
     .command("add <file>",
-        "Add a file to repository",
+        "Stage a file into .vault/staging/",
         (yargs) => {
             yargs.positional("file", {
                 describe: "File to add to the staging area",

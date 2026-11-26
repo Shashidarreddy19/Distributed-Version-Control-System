@@ -4,6 +4,36 @@
   background: var(--cream);
 }
 
+.sidebar-search-wrapper {
+  padding: 0 var(--space-4) var(--space-3);
+}
+
+.sidebar-search {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--cream-dark);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.sidebar-search:focus {
+  border-color: var(--purple);
+}
+
+.sidebar-search::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.sidebar-empty {
+  padding: 8px var(--space-5);
+  font-size: 13px;
+  color: var(--color-text-subtle);
+}
+
 /* ── Sidebar ── */
 .dashboard-sidebar {
   width: 240px;

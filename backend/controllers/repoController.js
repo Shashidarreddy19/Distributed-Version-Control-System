@@ -92,11 +92,7 @@ const getRepositoriesForCurrentUser = async (req, res) => {
 
     try {
         const repositories = await Repository.find({ owner: userId });
-
-        if (!repositories || repositories.length === 0) {
-            return res.status(404).json({ error: "No repositories found for this user!" });
-        }
-
+        // Always return 200 — empty array is a valid result, not an error
         res.json({ message: "Repositories found!", repositories });
     } catch (err) {
         console.error("Error during fetching user repositories:", err.message);

@@ -1,0 +1,191 @@
+.profile-layout {
+  max-width: 1000px;
+  margin: var(--space-8) auto;
+  padding: 0 var(--space-6);
+}
+
+/* ── Profile header ── */
+.profile-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-8);
+  border-bottom: 1.5px solid var(--color-border);
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-avatar-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--coral) 100%);
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.profile-avatar {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--coral) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  font-weight: 800;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 16px rgba(117,105,222,0.30);
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.profile-username {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+  font-weight: 500;
+}
+
+/* Stats pills row */
+.profile-stats-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.profile-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.profile-stat-pill:hover {
+  border-color: var(--purple);
+  box-shadow: 0 2px 10px rgba(117,105,222,0.12);
+}
+
+.profile-stat-pill strong {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* ── Pill tabs ── */
+.profile-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: var(--space-6);
+  padding: 5px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  width: fit-content;
+  box-shadow: var(--shadow-sm);
+}
+
+.profile-tab {
+  padding: 7px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, box-shadow 0.15s;
+  border: none;
+  background: none;
+}
+
+.profile-tab:hover {
+  color: var(--color-text);
+  background: var(--cream-dark);
+}
+
+.profile-tab.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--coral) 100%);
+  box-shadow: 0 2px 10px rgba(117,105,222,0.28);
+}
+
+/* ── Repo grid ── */
+.profile-repo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+/* Shared repo-card styles with dashboard */
+.profile-repo-grid .repo-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+}
+
+.profile-repo-grid .repo-card:hover {
+  border-color: var(--purple);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(117,105,222,0.14);
+}
+
+/* ── Contribution section ── */
+.contribution-section {
+  margin-bottom: var(--space-8);
+}
+
+.contribution-header {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.2px;
+}
+
+.contribution-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  overflow-x: auto;
+  box-shadow: var(--shadow-card);
+}
+
+.contribution-label {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  margin-bottom: var(--space-3);
+  font-weight: 500;
+}

@@ -1,0 +1,420 @@
+.dashboard-layout {
+  display: flex;
+  min-height: calc(100vh - 58px);
+  background: var(--cream);
+}
+
+/* ── Sidebar ── */
+.dashboard-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  padding: var(--space-5) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 2px 0 12px rgba(45,42,38,0.04);
+}
+
+.sidebar-section-label {
+  padding: 0 var(--space-5);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  margin-top: 18px;
+}
+
+.sidebar-section-label:first-child {
+  margin-top: 0;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px var(--space-5);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  border-radius: 0;
+}
+
+.sidebar-nav-item:hover {
+  color: var(--color-text);
+  background: var(--cream-dark);
+  text-decoration: none;
+}
+
+.sidebar-nav-item.active {
+  color: var(--purple);
+  background: var(--purple-light);
+  border-right: 3px solid var(--purple);
+  font-weight: 600;
+}
+
+.sidebar-nav-item .nav-icon {
+  font-size: 15px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ── Main content ── */
+.dashboard-main {
+  flex: 1;
+  padding: var(--space-8);
+  overflow-y: auto;
+  min-width: 0;
+}
+
+/* Topbar */
+.dashboard-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+}
+
+.dashboard-greeting {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.4px;
+}
+
+.dashboard-greeting span {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.dashboard-date {
+  font-size: 13px;
+  color: var(--color-text-subtle);
+  font-weight: 500;
+}
+
+/* ── Stats grid ── */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+.stat-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Colored accent circle in top-right corner */
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: -24px;
+  right: -24px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  opacity: 0.15;
+}
+
+.stat-card--repos::after  { background: var(--purple); }
+.stat-card--issues::after { background: var(--coral); }
+.stat-card--commits::after{ background: var(--green); }
+
+/* Left border accent */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+}
+
+.stat-card--repos::before  { background: var(--purple); }
+.stat-card--issues::before { background: var(--coral); }
+.stat-card--commits::before{ background: var(--green); }
+
+.stat-card-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.stat-card--repos .stat-card-label   { color: var(--purple); }
+.stat-card--issues .stat-card-label  { color: var(--coral); }
+.stat-card--commits .stat-card-label { color: var(--green); }
+
+.stat-card-value {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--color-text);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.stat-card-sub {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  font-weight: 500;
+}
+
+/* ── Section headers ── */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.2px;
+}
+
+.section-action {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--purple);
+  text-decoration: none;
+  padding: 5px 12px;
+  background: var(--purple-light);
+  border-radius: var(--radius-pill);
+  transition: background 0.15s;
+}
+
+.section-action:hover {
+  background: rgba(117,105,222,0.20);
+  text-decoration: none;
+}
+
+/* ── Repo cards ── */
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.repo-card {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-card);
+}
+
+.repo-card:hover {
+  border-color: var(--purple);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(117,105,222,0.14);
+  text-decoration: none;
+  color: inherit;
+}
+
+.repo-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.repo-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--purple);
+}
+
+.repo-card-visibility {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+  background: var(--green-light);
+  border-radius: var(--radius-pill);
+  padding: 2px 9px;
+  flex-shrink: 0;
+}
+
+.repo-card-description {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  flex: 1;
+}
+
+.repo-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  font-weight: 500;
+}
+
+.repo-card-lang {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lang-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--orange);
+  flex-shrink: 0;
+}
+
+.repo-card-open {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--purple);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.repo-card:hover .repo-card-open {
+  opacity: 1;
+}
+
+/* ── Activity timeline ── */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-8);
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  position: relative;
+}
+
+.activity-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 42px;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border);
+}
+
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--cream-dark);
+  border: 1.5px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--shadow-sm);
+}
+
+.activity-content {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.activity-text {
+  font-size: 13px;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.activity-text strong {
+  font-weight: 700;
+}
+
+.activity-time {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* ── Empty state ── */
+.empty-state {
+  padding: var(--space-10) var(--space-8);
+  text-align: center;
+  background: var(--color-surface);
+  border: 1.5px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.empty-state-icon {
+  font-size: 36px;
+  margin-bottom: var(--space-3);
+}
+
+.empty-state-text {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.empty-state-btn {
+  padding: 10px 24px;
+  background: var(--coral);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 10px rgba(254,104,69,0.28);
+}
+
+.empty-state-btn:hover {
+  background: var(--coral-hover);
+  box-shadow: 0 4px 14px rgba(254,104,69,0.38);
+}

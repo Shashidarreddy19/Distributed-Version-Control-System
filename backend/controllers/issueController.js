@@ -3,15 +3,17 @@ const Issue = require('../models/issueModel');
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const { stat } = require('fs-extra');
 
 dotenv.config();
 
 const createIssue = async (req, res) => {
-    const { title, description } = req.body;
-    const { repoId } = req.params;
+    const { title, description, repoId } = req.body;
 
     try {
+        if (!title || !description || !repoId) {
+            return res.status(400).json({ error: "Title, description, and repoId are required!" });
+        }
+
         const issue = new Issue({
             title,
             description,
@@ -27,21 +29,23 @@ const createIssue = async (req, res) => {
 };
 
 const updateIssueById = async (req, res) => {
-    const { issueId } = req.params;
+    const { id } = req.params;
     const { title, description, status } = req.body;
+    
     try {
         const updateFields = {};
 
-        if(title) updateFields.title = title;
-        if(description) updateFields.description = description;
-        if(status) updateFields.status = status;
+        if (title) updateFields.title = title;
+        if (description) updateFields.description = description;
+        if (status) updateFields.status = status;
         
-        const issue = await Issue.findByIdAndUpdate(issueId, updateFields);
-        if(!issue) {
-            res.status(404).json({ error: "Issue not found!" });
+        const issue = await Issue.findByIdAndUpdate(id, updateFields, { new: true });
+        
+        if (!issue) {
+            return res.status(404).json({ error: "Issue not found!" });
         }
 
-        res.status(201).json({ message: "Issue updated successfully!", issue });
+        res.status(200).json({ message: "Issue updated successfully!", issue });
     } catch (err) {
         console.error("Error updating Issue:", err.message);
         res.status(500).send("Server error");
@@ -49,15 +53,16 @@ const updateIssueById = async (req, res) => {
 };
 
 const deleteIssueById = async (req, res) => {
-    const { issueId } = req.params;
+    const { id } = req.params;
 
     try {   
-        const issue = await Issue.findByIdAndDelete(issueId);
-        if(!issue) {
-            res.status(404).json({ error: "Issue not found!" });
+        const issue = await Issue.findByIdAndDelete(id);
+        
+        if (!issue) {
+            return res.status(404).json({ error: "Issue not found!" });
         }
 
-        res.status(201).json({ message: "Issue deleted successfully!" });
+        res.status(200).json({ message: "Issue deleted successfully!" });
     } catch (err) {
         console.error("Error deleting Issue:", err.message);
         res.status(500).send("Server error");
@@ -65,14 +70,11 @@ const deleteIssueById = async (req, res) => {
 };
 
 const getAllIssues = async (req, res) => {
-    const { repoId } = req.params;
+    const { repoId } = req.query;
 
     try {
-        const issues = await Issue.find({ repository: repoId });
-
-        if(!issues) {
-            res.status(404).json({ error: "Issues not found!" });
-        }
+        const query = repoId ? { repository: repoId } : {};
+        const issues = await Issue.find(query);
 
         res.status(200).json(issues);
     } catch (err) {
@@ -86,11 +88,12 @@ const getIssueById = async (req, res) => {
 
     try {
         const issue = await Issue.findById(issueId);
-        if(!issue) {
-            res.status(404).json({ error: "Issue not found!" });
+        
+        if (!issue) {
+            return res.status(404).json({ error: "Issue not found!" });
         }
 
-        res.status(201).json({ message: "Issue found successfully!" });
+        res.status(200).json({ message: "Issue found successfully!", issue });
     } catch (err) {
         console.error("Error fetching issue:", err.message);
         res.status(500).send("Server error");

@@ -34,7 +34,7 @@ const createRepository = async (req, res) => {
         console.error("Error creating Repository:", err.message);
         res.status(500).send("Server error");
     }
-}
+};
 
 const getAllRepositories = async (req, res) => {
     try {
@@ -47,16 +47,18 @@ const getAllRepositories = async (req, res) => {
         console.error("Error fetching Repositories:", err.message);
         res.status(500).send("Server error");
     }
-}
+};
 
 const getRepositoryById = async (req, res) => {
     const { repoId } = req.params;
 
     try {
-        const repository = await Repository.findById(repoId).populate("owner").populate("issues");
+        const repository = await Repository.findById(repoId)
+            .populate("owner")
+            .populate("issues");
 
         if (!repository) {
-            return res.status(400).json({ error: "Repository not found!" });
+            return res.status(404).json({ error: "Repository not found!" });
         }
 
         res.json(repository);
@@ -64,16 +66,18 @@ const getRepositoryById = async (req, res) => {
         console.error("Error during fetching repository:", err.message);
         res.status(500).send("Server error");
     }
-}
+};
 
 const getRepositoryByName = async (req, res) => {
     const { repoName } = req.params;
 
     try {
-        const repository = await Repository.find({ name: repoName }).populate("owner").populate("issues");
+        const repository = await Repository.find({ name: repoName })
+            .populate("owner")
+            .populate("issues");
 
-        if (!repository) {
-            return res.status(400).json({ error: "Repository not found!" });
+        if (!repository || repository.length === 0) {
+            return res.status(404).json({ error: "Repository not found!" });
         }
 
         res.json(repository);
@@ -81,7 +85,7 @@ const getRepositoryByName = async (req, res) => {
         console.error("Error during fetching repository:", err.message);
         res.status(500).send("Server error");
     }
-}
+};
 
 const getRepositoriesForCurrentUser = async (req, res) => {
     const { userId } = req.params;
@@ -89,8 +93,8 @@ const getRepositoriesForCurrentUser = async (req, res) => {
     try {
         const repositories = await Repository.find({ owner: userId });
 
-        if (!repositories || repositories.length == 0) {
-            res.status(404).json({ error: "User Repositories not found!" });
+        if (!repositories || repositories.length === 0) {
+            return res.status(404).json({ error: "No repositories found for this user!" });
         }
 
         res.json({ message: "Repositories found!", repositories });
@@ -98,7 +102,7 @@ const getRepositoriesForCurrentUser = async (req, res) => {
         console.error("Error during fetching user repositories:", err.message);
         res.status(500).send("Server error");
     }
-}
+};
 
 const updateRepositoryById = async (req, res) => {
     const { repoId } = req.params;
@@ -107,12 +111,8 @@ const updateRepositoryById = async (req, res) => {
     try {
         const updateFields = {};
 
-        if (content) {
-            updateFields.content = content;
-        }
-        if (description) {
-            updateFields.description = description;
-        }
+        if (content) updateFields.content = content;
+        if (description) updateFields.description = description;
 
         const updatedRepository = await Repository.findByIdAndUpdate(
             repoId,
@@ -120,17 +120,16 @@ const updateRepositoryById = async (req, res) => {
             { new: true }
         );
 
-        if (!result) {
+        if (!updatedRepository) {
             return res.status(404).json({ error: "Repository not found" });
         }
 
         res.json({ message: "Repository updated successfully!", updatedRepository });
-
     } catch (err) {
         console.error("Error during updating repository:", err.message);
         res.status(500).send("Server error");
     }
-}
+};
 
 const toggleVisibilityById = async (req, res) => {
     const { repoId } = req.params;
@@ -139,7 +138,7 @@ const toggleVisibilityById = async (req, res) => {
         const repository = await Repository.findById(repoId);
 
         if (!repository) {
-            return res.status(400).json({ error: "Repository not found!" });
+            return res.status(404).json({ error: "Repository not found!" });
         }
 
         repository.visibility = !repository.visibility;
@@ -150,7 +149,7 @@ const toggleVisibilityById = async (req, res) => {
         console.error("Error during toggling repository:", err.message);
         res.status(500).send("Server error");
     }
-}
+};
 
 const deleteRepositoryById = async (req, res) => {
     const { repoId } = req.params;
@@ -158,16 +157,16 @@ const deleteRepositoryById = async (req, res) => {
     try {
         const repository = await Repository.findByIdAndDelete(repoId);
 
-        if(!repository) {
+        if (!repository) {
             return res.status(404).json({ error: "Repository not found!" });
-        } 
+        }
 
         res.json({ message: "Repository deleted successfully" });
     } catch (err) {
         console.error("Error during deleting repository:", err.message);
         res.status(500).send("Server error");
     }
-}
+};
 
 module.exports = {
     getAllRepositories,
